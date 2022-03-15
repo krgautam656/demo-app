@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+{{>header}}
+
+<body>
+    <div class="container-fluid ">
+        <div class="container ">
+            <div class="row ">
+
+                <div class="col-sm-10 login-box">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5 box-de">
+                            <div class="ditk-inf sup-oi" style="margin-top: 40px;">
+                                <h2 class="w-100">Already Have an Account </h2>
+                                <p>Simply login to your account by clicking the login Button</p>
+                                <a href="login">
+                                    <button type="button" class="btn btn-outline-light">SIGN IN</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-7 log-det">
+
+                            <h2>Create Account</h2>
+                            <div class="row">
+                                <ul>
+                                    <li><i class="fab fa-facebook-f"></i></li>
+                                    <li><i class="fab fa-twitter"></i></li>
+                                    <li><i class="fab fa-linkedin-in"></i></li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <p class="small-info">or use your email account</p>
+                            </div>
+
+                            <div class="text-box-cont">
+                                <form method="post" id="registration">
+                                    <div class="mb-3" align="center">
+                                        <span id="check"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="firstName">First Name</label>
+                                        <input type="text" name="firstName" class="form-control" id="firstName" placeholder="First Name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="lastName">Last Name</label>
+                                        <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="email">Email</label>
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input type="password" name="password" class="form-control" id="password"
+                                            placeholder="Password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
+                                            placeholder="Confirm Password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="datepicker">Date of Birth</label>
+                                        <input type="text" name="dob" class="form-control" id="datepicker" placeholder="Date of Birth" required readonly style="width: 100%;">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                                        <input type="text" name="phoneNumber" class="form-control" id="phoneNumber"
+                                            placeholder="Phone Number" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="radioMale">Gender</label>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input" name="gender"
+                                                        id="radioMale" value="Male">
+                                                    <label class="form-check-label" for="radioMale">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline ms-3">
+                                                    <input type="radio" class="form-check-input" name="gender"
+                                                        id="radioFemale" value="Female">
+                                                    <label class="form-check-label" for="radioFemale">Female</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="address">Address</label>
+                                        <input type="text" name="address" class="form-control" id="address" placeholder="Address">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="city">City</label>
+                                        <input type="text" name="city" class="form-control" id="city" placeholder="City">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="state">State</label>
+                                        <input type="text" name="state" class="form-control" id="state" placeholder="State">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="pinCode">Pin Code</label>
+                                        <input type="text" name="pinCode" class="form-control" id="pinCode" placeholder="Pin Code">
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="checkRemember">
+                                            <label class="form-check-label" for="checkRemember">Remember me</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group center sup mb-3">
+                                        <button class="btn btn-success btn-round">SIGN UP</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{{>footer}}
+
+</html>

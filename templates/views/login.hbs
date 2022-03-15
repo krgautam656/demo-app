@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+{{>header}}
+
+<body>
+    <div class="container-fluid ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-10 login-box">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-7 log-det">
+                            <h2>Sign in to TRIXELL</h2>
+                            <div class="row">
+                                <ul>
+                                    <li><i class="fab fa-facebook-f"></i></li>
+                                    <li><i class="fab fa-twitter"></i></li>
+                                    <li><i class="fab fa-linkedin-in"></i></li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <p class="small-info">or use your email account</p>
+                            </div>
+
+                            <div class="text-box-cont">
+                                <form method="post" id="login">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="userName">User Name</label>
+                                        <input type="email" name="userName" id="userName" class="form-control"
+                                            placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control"
+                                            placeholder="Password" aria-label="PAssword" aria-describedby="basic-addon1"
+                                            required>
+                                    </div>
+                                    <div class="mb-3 text-danger" align="center">
+                                        <span id="check">{{message}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <p class="forget-p">Forget Password ?</p>
+                                    </div>
+                                    <div class="input-group center mb-3">
+                                        <button type="submit" class="btn btn-success btn-round">SIGN IN</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 col-md-5 box-de">
+                            <div class="ditk-inf">
+                                <h2 class="w-100">Din't Have an Account </h2>
+                                <p>Simply Create your account by clicking the Signup Button</p>
+                                <a href="register">
+                                    <button type="button" class="btn btn-outline-light">SIGN UP</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{{>footer}}
+
+</html>
