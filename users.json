@@ -1,0 +1,15 @@
+[{
+    "firstName": "Gautam",
+    "lastName": "Kumar",
+    "email": "krgautam656@gmail.com",
+    "password": "aaaaa",
+    "confirmPassword": "aaaaa",
+    "dob": "16/03/2022",
+    "phoneNumber": "1111111111",
+    "gender": "Male",
+    "address": "",
+    "city": "",
+    "state": "",
+    "pinCode": "",
+    "id": "1ebd5279-f6bb-47d2-8873-fb1f4360d3fd"
+}]

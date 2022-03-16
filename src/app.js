@@ -3,12 +3,13 @@ const express = require('express')
 const hbs = require('hbs')
 const cors = require('cors')
 const fs = require('fs')
-const users = require('./users.json')
+
 const uuid = require('uuid')
 const cookieParser = require("cookie-parser")
 const sessions = require('express-session')
 
 const PORT = process.env.PORT || 3000
+var users
 
 const app = express()
 
@@ -52,8 +53,6 @@ app.get(['', '/login'], (req, res) => {
 
 app.get('/dashboard', (req, res) => {
     if (session.username) {
-        const user = users.find(el => el.id === session.userId)
-
         res.render('index', {
             title: 'Dashboard',
             name: session.username
@@ -66,6 +65,7 @@ app.get('/dashboard', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
+    users = getUsers()
     var start = req.query.start
     var length = req.query.length
     var data = users.slice(start, start + length)
@@ -93,7 +93,7 @@ app.get('/logout', (req, res) => {
 
 app.post('/login', (req, res) => {
     const userInfo = req.body
-    const user = users.find(el => el.email === userInfo.userName)
+    const user = getUsers().find(el => el.email === userInfo.userName)
     if (user) {
         if (user.password == userInfo.password) {
             session.username = user.firstName + ' ' + user.lastName
@@ -116,6 +116,7 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
+    users = getUsers()
     const userInfo = req.body
     const user = users.find(el => el.email === userInfo.email)
 
@@ -123,12 +124,16 @@ app.post('/register', (req, res) => {
         const id = uuid.v4()
         userInfo.id = id
         users.push(userInfo)
-        fs.writeFileSync('users.json', JSON.stringify(users))
+        fs.writeFileSync('./users.json', JSON.stringify(users))
         res.send({ message: "User registered successfully,You can login now." })
     } else {
         res.status(400).send({ message: "Failed! Email is already in use!" })
     }
 })
+
+function getUsers() {
+    return JSON.parse(fs.readFileSync('./users.json', 'utf8'))
+}
 
 app.listen(PORT, () => {
     console.log('App Started on port ' + PORT)
