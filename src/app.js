@@ -52,6 +52,8 @@ app.get(['', '/login'], (req, res) => {
 
 app.get('/dashboard', (req, res) => {
     if (session.username) {
+        const user = users.find(el => el.id === session.userId)
+
         res.render('index', {
             title: 'Dashboard',
             name: session.username
@@ -61,6 +63,17 @@ app.get('/dashboard', (req, res) => {
             message: 'Please login first!'
         })
     }
+})
+
+app.get('/users', (req, res) => {
+    var start = req.query.start
+    var length = req.query.length
+    var data = users.slice(start, start + length)
+    res.send({
+        'recordsTotal': users.length,
+        'recordsFiltered': users.length,
+        'data': data,
+    })
 })
 
 app.get('/profile', (req, res) => {
@@ -84,6 +97,7 @@ app.post('/login', (req, res) => {
     if (user) {
         if (user.password == userInfo.password) {
             session.username = user.firstName + ' ' + user.lastName
+            session.userId = user.id
             res.send({
                 'Success': 'Success!'
             })
