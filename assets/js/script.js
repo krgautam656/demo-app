@@ -143,6 +143,35 @@ $(document).ready(function() {
         todayHighlight: true
     });
 
-    $('#example').DataTable();
+    $('#usersTable').DataTable({
+        'processing': true,
+        'serverSide': true,
+        ajax: {
+            url: '/users',
+            method: "GET"
+        },
+        columns: [{
+                data: null,
+                sortable: false,
+                render: function(data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            }, {
+                data: 'firstName'
+            },
+            {
+                data: 'lastName'
+            },
+            {
+                data: 'email'
+            },
+            {
+                data: 'phoneNumber'
+            }
+        ]
+    })
+
+
+
 
 })
