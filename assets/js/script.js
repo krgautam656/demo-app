@@ -80,11 +80,11 @@ $(document).ready(function() {
                 data: $(form).serialize(),
                 dataType: "json",
                 success: (response) => {
-                    console.log(response)
                     $('#registration')[0].reset()
                     $('#check').removeClass('text-danger')
                     $('#check').addClass('text-success')
                     $('#check').html(response.message)
+                    $(window).scrollTop(0);
                 },
                 error: (jqXHR, textStatus, errorThrown) => {
                     $('#check').removeClass('text-success')
@@ -170,8 +170,4 @@ $(document).ready(function() {
             }
         ]
     })
-
-
-
-
 })
