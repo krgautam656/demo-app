@@ -4,12 +4,12 @@
     "email": "krgautam656@gmail.com",
     "password": "aaaaa",
     "confirmPassword": "aaaaa",
-    "dob": "16/03/2022",
-    "phoneNumber": "1111111111",
+    "dob": "16/03/1998",
+    "phoneNumber": "9066502109",
     "gender": "Male",
-    "address": "",
-    "city": "",
-    "state": "",
-    "pinCode": "",
+    "address": "Rayasandra",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "pinCode": "560099",
     "id": "1ebd5279-f6bb-47d2-8873-fb1f4360d3fd"
 }]
