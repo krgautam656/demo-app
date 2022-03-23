@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+(c) 2005-2015 Copyright, Real-Time Innovations.  All rights reserved.
+No duplications, whole or partial, manual or electronic, may be made
+without express written permission.  Any such copies, or revisions thereof,
+must display this notice unaltered.
+This code contains trade secrets of Real-Time Innovations, Inc.
+ -->
+
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/current/rti_dds_profiles.xsd">
+
+    <!-- Qos Library -->
+    <qos_library name="QosLibrary">
+        <qos_profile name="DefaultProfile"
+                     base_name="BuiltinQosLibExp::Generic.StrictReliable"
+                     is_default_qos="true">
+            <domain_participant_qos>
+                <participant_name>
+                    <name>Connector Shape Example</name>
+                </participant_name>
+            </domain_participant_qos>
+        </qos_profile>
+    </qos_library>
+
+    <!-- types -->
+    <types>
+        <struct name="UserType">
+            <member name="name" stringMaxLength="128" type="string" key="true"/>
+            <member name="email" stringMaxLength="128" type="string"/>
+            <member name="gender" stringMaxLength="128" type="string"/>
+            <member name="phonenumber" stringMaxLength="10" type="string"/>
+            <member name="dob" stringMaxLength="10" type="string"/>
+        </struct>
+    </types>
+
+    <!-- Domain Library -->
+    <domain_library name="UserDomainLibrary">
+        <domain name="UserDomain" domain_id="0">
+            <register_type name="UserType" type_ref="UserType" />
+            <topic name="User" register_type_ref="UserType"/>
+        </domain>
+    </domain_library>
+
+    <!-- Participant library -->
+    <domain_participant_library name="UserParticipantLibrary">
+        <domain_participant name="UserPubParticipant" domain_ref="UserDomainLibrary::UserDomain">
+            <publisher name="UserPublisher">
+                <data_writer name="UserWriter" topic_ref="User" />
+            </publisher>
+        </domain_participant>
+        <domain_participant name="UserSubParticipant" domain_ref="UserDomainLibrary::UserDomain">
+            <subscriber name="UserSubscriber">
+                <data_reader name="UserReader" topic_ref="User" />
+            </subscriber>
+        </domain_participant>
+    </domain_participant_library>
+</dds>
