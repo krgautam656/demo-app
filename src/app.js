@@ -3,6 +3,10 @@ const express = require('express')
 const hbs = require('hbs')
 const cors = require('cors')
 const fs = require('fs')
+const fetch = require('node-fetch')
+const rti = require('rticonnextdds-connector')
+var convert = require('xml-js')
+
 
 const uuid = require('uuid')
 const cookieParser = require("cookie-parser")
@@ -16,6 +20,7 @@ const app = express()
 const resourcesPath = path.join(__dirname, '../assets')
 const templatesPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
+const configFile = path.join(__dirname, '../ShapeExample.xml')
 
 app.set('view engine', 'hbs')
 app.set('views', templatesPath)
@@ -55,7 +60,7 @@ app.get('/dashboard', (req, res) => {
     if (session.username) {
         res.render('index', {
             title: 'Dashboard',
-            name: session.username
+            data: session.username
         })
     } else {
         res.render('login', {
@@ -65,15 +70,26 @@ app.get('/dashboard', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-    users = getUsers()
+    users = getUsers();
     var start = req.query.start
     var length = req.query.length
-    var data = users.slice(start, start + length)
+
     res.send({
         'recordsTotal': users.length,
         'recordsFiltered': users.length,
-        'data': data,
+        'data': (typeof start !== 'undefined' && start) ? users.slice(start, start + length) : users,
     })
+})
+
+app.get('/details', (req, res) => {
+    fetch('http://localhost:8080/dds/rest1/applications/UsersDemoApp/domain_participants/UserParticipant/subscribers/UserSubscriber/data_readers/UserReader')
+        .then(response => response.text())
+        .then(data => {
+            var result = JSON.parse(convert.xml2json(data, { compact: true, spaces: 4 }))
+            res.send((Object.keys(result.read_sample_seq).length) ? result.read_sample_seq.sample.data : 'Waiting for publications...')
+        }).catch(function(err) {
+            console.log('Not found: ' + err)
+        })
 })
 
 app.get('/profile', (req, res) => {
@@ -125,6 +141,27 @@ app.post('/register', (req, res) => {
         userInfo.id = id
         users.push(userInfo)
         fs.writeFileSync('./users.json', JSON.stringify(users))
+
+        let data = {
+            name: (Object.keys(userInfo.lastName).length) ? userInfo.firstName + ' ' + userInfo.lastName : userInfo.firstName,
+            email: userInfo.email,
+            gender: userInfo.gender,
+            phonenumber: userInfo.phoneNumber,
+            dob: userInfo.dob
+        }
+
+        fetch('http://localhost:8080/dds/rest1/applications/UsersDemoApp/domain_participants/UserParticipant/publishers/UserPublisher/data_writers/UserWriter', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then((res) => {
+            if (res.ok) {
+                console.log('User details successfully published..')
+            }
+        }).catch((err) => {
+            console.error(err);
+        });
+
         res.send({ message: "User registered successfully,You can login now." })
     } else {
         res.status(400).send({ message: "Failed! Email is already in use!" })

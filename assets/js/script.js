@@ -170,4 +170,36 @@ $(document).ready(function() {
             }
         ]
     })
+
+    $.ajax({
+        url: '/users',
+        success: (response) => {
+            $.each(response.data, function(k, v) {
+                $('#detailsTable tbody')
+                    .append('<tr><td>' + v.firstName + '</td><td>' + v.gender + '</td><td>' + v.email + ' </td><td>' + v.phoneNumber + '</td><td>' + v.dob + '</td></tr>')
+            })
+        },
+        error: (jqXHR, textStatus, errorThrown) => {}
+    })
 })
+
+
+
+var myVar = setInterval(function() { myTimer() }, 500);
+
+function myTimer() {
+    $.ajax({
+        url: '/details',
+        success: (response) => {
+            if (typeof response.name != "undefined") {
+                $('#detailsTable tbody')
+                    .prepend('<tr/>')
+                    .children('tr:first')
+                    .append('<td>' + response.name._text + '</td><td>' + response.gender._text + '</td><td>' + response.email._text + ' </td><td>' + response.phonenumber._text + '</td><td>' + response.dob._text + '</td>')
+            }
+        },
+        error: (jqXHR, textStatus, errorThrown) => {
+            //document.getElementById("check").innerHTML = jqXHR.responseJSON.message
+        }
+    })
+}
