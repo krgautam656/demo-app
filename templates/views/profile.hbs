@@ -11,7 +11,7 @@
     <meta name="description"
         content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>AdminWrap Lite Template by WrapPixel</title>
+    <title>{{title}}</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/adminwrap-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
@@ -52,7 +52,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="dashboard">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
@@ -175,10 +175,12 @@
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body">
-                                <center class="mt-4"> <img src="images/users/5.jpg" class="img-circle" width="150" />
-                                    <h4 class="card-title mt-2">Hanna Gover</h4>
-                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
-                                    <div class="row text-center justify-content-md-center">
+                                <center class="mt-4"> 
+                                    <i class="fa fa-user-circle" style="font-size: 150px;"></i>
+                                    {{!-- <img src="images/users/5.jpg" class="img-circle" width="150" /> --}}
+                                    <h2 class="card-title mt-2">{{data.firstName}}&nbsp;{{data.lastName}}</h2>
+                                    {{!-- <h6 class="card-subtitle">Accoubts Manager Amix corp</h6> --}}
+                                    {{!-- <div class="row text-center justify-content-md-center">
                                         <div class="col-4"><a href="javascript:void(0)" class="link"><i
                                                     class="fa fa-user"></i>
                                                 <font class="font-medium">254</font>
@@ -187,7 +189,7 @@
                                                     class="fa fa-camera"></i>
                                                 <font class="font-medium">54</font>
                                             </a></div>
-                                    </div>
+                                    </div> --}}
                                 </center>
                             </div>
                         </div>
@@ -202,30 +204,30 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Full Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Full Name"
-                                                class="form-control">
+                                            <input type="text" placeholder="Full Name" name="fullName"
+                                                class="form-control" value="{{data.firstName}} {{data.lastName}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" placeholder="Email"
+                                            <input type="email" placeholder="Email" name="email"
                                                 class="form-control" name="example-email"
-                                                id="example-email">
+                                                id="example-email" value="{{data.email}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Password</label>
                                         <div class="col-md-12">
-                                            <input type="password" placeholder="Password"
+                                            <input type="password" placeholder="Password" name="password"
                                                 class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Phone No</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Phone No"
-                                                class="form-control">
+                                            <input type="text" placeholder="Phone No" name="phoneNumber"
+                                                class="form-control" value="{{data.phoneNumber}}">
                                         </div>
                                     </div>
                                     <div class="form-group">

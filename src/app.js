@@ -60,7 +60,7 @@ app.get('/dashboard', (req, res) => {
     if (session.username) {
         res.render('index', {
             title: 'Dashboard',
-            data: session.username
+            name: session.username
         })
     } else {
         res.render('login', {
@@ -93,10 +93,17 @@ app.get('/details', (req, res) => {
 })
 
 app.get('/profile', (req, res) => {
-    res.render('profile', {
-        title: 'Profile',
-        name: session.username
-    })
+    if (session.username) {
+        res.render('profile', {
+            title: 'Profile',
+            name: session.username,
+            data: getUsers().find(el => el.id === session.userId)
+        })
+    } else {
+        res.render('login', {
+            message: 'Please login first!'
+        })
+    }
 })
 
 app.get('/logout', (req, res) => {
