@@ -143,12 +143,18 @@ $(document).ready(function() {
         todayHighlight: true
     });
 
-    $('#usersTable').DataTable({
+    let userTable = $('#detailsTable').DataTable({
         'processing': true,
         'serverSide': true,
+        'pageLength': 5,
+        'lengthMenu': [5, 10, 25, 50, 100],
+        'columnDefs': [{
+            "defaultContent": "-",
+            "targets": "_all"
+        }],
         ajax: {
             url: '/users',
-            method: "GET"
+            method: "GET",
         },
         columns: [{
                 data: null,
@@ -157,49 +163,43 @@ $(document).ready(function() {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             }, {
-                data: 'firstName'
+                data: null,
+                render: function(data, type, row) {
+                    return row.firstName + ' ' + row.lastName;
+                }
             },
             {
-                data: 'lastName'
+                data: 'gender'
             },
             {
                 data: 'email'
             },
             {
                 data: 'phoneNumber'
+            },
+            {
+                data: 'dob'
             }
         ]
     })
 
-    $.ajax({
-        url: '/users',
-        success: (response) => {
-            $.each(response.data, function(k, v) {
-                $('#detailsTable tbody')
-                    .append('<tr><td>' + v.firstName + '</td><td>' + v.gender + '</td><td>' + v.email + ' </td><td>' + v.phoneNumber + '</td><td>' + v.dob + '</td></tr>')
-            })
-        },
-        error: (jqXHR, textStatus, errorThrown) => {}
-    })
+    setInterval(function() {
+        $.ajax({
+            url: '/details',
+            success: (response) => {
+                if (typeof response.name != "undefined") {
+                    console.log(response)
+                    userTable.row.add([
+                        userTable.data().count() + 1,
+                        response.name._text,
+                        response.gender._text,
+                        response.email._text,
+                        response.phonenumber._text,
+                        response.dob._text,
+                    ]).draw(true)
+                }
+            },
+            error: (jqXHR, textStatus, errorThrown) => {}
+        })
+    }, 500)
 })
-
-
-
-var myVar = setInterval(function() { myTimer() }, 500);
-
-function myTimer() {
-    $.ajax({
-        url: '/details',
-        success: (response) => {
-            if (typeof response.name != "undefined") {
-                $('#detailsTable tbody')
-                    .prepend('<tr/>')
-                    .children('tr:first')
-                    .append('<td>' + response.name._text + '</td><td>' + response.gender._text + '</td><td>' + response.email._text + ' </td><td>' + response.phonenumber._text + '</td><td>' + response.dob._text + '</td>')
-            }
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            //document.getElementById("check").innerHTML = jqXHR.responseJSON.message
-        }
-    })
-}

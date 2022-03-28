@@ -70,14 +70,30 @@ app.get('/dashboard', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-    users = getUsers();
+    users = getUsers()
     var start = req.query.start
     var length = req.query.length
+    var search = req.query.search.value
+    var data = getUsers()
+
+    var total = 0
+    var filter = 0
+    if (typeof start !== 'undefined') {
+        data = users.slice(parseInt(start), (parseInt(start) + parseInt(length)))
+        total = users.length
+        filter = users.length
+    }
+
+    if (search != '') {
+        data = data.filter(obj => Object.values(obj).some(val => val.includes(search)))
+        total = users.length
+        filter = data.length
+    }
 
     res.send({
-        'recordsTotal': users.length,
-        'recordsFiltered': users.length,
-        'data': (typeof start !== 'undefined' && start) ? users.slice(start, start + length) : users,
+        'recordsTotal': total,
+        'recordsFiltered': filter,
+        'data': data
     })
 })
 
@@ -86,9 +102,13 @@ app.get('/details', (req, res) => {
         .then(response => response.text())
         .then(data => {
             var result = JSON.parse(convert.xml2json(data, { compact: true, spaces: 4 }))
+            if ((Object.keys(result.read_sample_seq).length)) {
+                console.log('User details successfully consumed..')
+            }
             res.send((Object.keys(result.read_sample_seq).length) ? result.read_sample_seq.sample.data : 'Waiting for publications...')
         }).catch(function(err) {
             console.log('Not found: ' + err)
+            res.send('Unable to connect dds server..')
         })
 })
 
