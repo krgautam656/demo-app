@@ -26,7 +26,8 @@ const run = async() => {
                 output.instance.setString('name', (!Object.keys(user.lastName).length) ? user.firstName + ' ' + user.lastName : user.firstName)
                 output.instance.setString('email', user.email)
                 output.instance.setString('gender', user.gender)
-                output.instance.setNumber('phonenumber', parseInt(user.phoneNumber))
+                output.instance.setNumber('phonenumber', user.phoneNumber)
+                output.instance.setNumber('dob', user.dob)
                 output.write()
 
                 sleep.msleep(500)
